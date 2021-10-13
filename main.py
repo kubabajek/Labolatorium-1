@@ -1,5 +1,7 @@
 import math
 import numpy as np
+import scipy.optimize
+from typing import Tuple
 def cylinder_area(r:float,h:float):
     """Obliczenie pola powierzchni walca. 
     Szczegółowy opis w zadaniu 1.
@@ -33,7 +35,7 @@ def fib(n:int) -> np.array:
             vector=np.append(vector, vector[x-2]+vector[x-1])
         return vector
     return None
-def matrix_calculations(a:float):
+def matrix_calculations(a:float) -> tuple:
     """Funkcja zwraca wartości obliczeń na macierzy stworzonej 
     na podstawie parametru a.  
     Szczegółowy opis w zadaniu 4.
@@ -45,7 +47,15 @@ def matrix_calculations(a:float):
     touple: krotka zawierająca wyniki obliczeń 
     (Minv, Mt, Mdet) - opis parametrów w zadaniu 4.
     """
-    return None
+    
+    M = np.array([[a, 1, -a], [0, 1, 1], [-a, a, 1]])
+    Mdet=np.linalg.det(M)
+    if Mdet == 0:
+        Minv=float('nan')
+    else:
+        Minv=np.linalg.inv(M)
+    Mt=np.transpose(M)
+    return Minv, Mt, Mdet
 
 def custom_matrix(m:int, n:int):
     """Funkcja zwraca macierz o wymiarze mxn zgodnie 
